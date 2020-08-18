@@ -35,9 +35,7 @@ t_haplotype <- nmhc2ppreds::get_haplotype_lut()
 haplotype <- t_haplotype$haplotype[t_haplotype$id == haplotype_id]
 message("haplotype: ", haplotype)
 
-sink("/dev/null")
-supported_mhcs <- netmhc2pan::supportedMHCs()
-sink()
+supported_mhcs <- netmhc2pan::get_netmhc2pan_alleles()
 
 if (nrow(supported_mhcs[supported_mhcs$mhc == haplotype & supported_mhcs$l == peptide_length, ]) == 0) {
   message(
@@ -64,10 +62,13 @@ peptides <- replicate(
   nmhc2ppreds::create_random_peptide(length = peptide_length)
 )
 
-ic50s <- netmhc2pan::smm(
-  x = peptides,
-  mhc = haplotype,
-  output.IC50 = TRUE
+WRITE TO FASTA FILE:
+peptides
+
+ic50s <- netmhc2pan::run_netmhc2pan(
+  fasta_filename = fasta_filename,
+  alleles = haplotype,
+
 )
 
 q <- nmhc2ppreds::convert_ic50s_to_quantiles(ic50s, n = n_quantiles)

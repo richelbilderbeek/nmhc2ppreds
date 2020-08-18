@@ -25,6 +25,7 @@ Imports:
     tibble
 Suggests:
     devtools,
+    ggplot2,
     testit,
     testthat (>= 2.1.0),
     knitr,

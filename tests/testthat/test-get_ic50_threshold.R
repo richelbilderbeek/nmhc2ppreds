@@ -1,13 +1,11 @@
 test_that("use", {
 
-  sink("/dev/null")
-  supported_mhcs <- netmhc2pan::supportedMHCs()
-  sink()
+  supported_mhcs <- netmhc2pan::get_netmhc2pan_alleles()
 
   expect_silent(
     get_lut_filename(
-      peptide_length = supported_mhcs$l[1],
-      mhc_haplotype = supported_mhcs$mhc[1]
+      peptide_length = 9,
+      mhc_haplotype = supported_mhcs[1]
     )
   )
   expect_silent(
