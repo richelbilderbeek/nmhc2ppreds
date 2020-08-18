@@ -35,7 +35,7 @@ t_haplotype <- nmhc2ppreds::get_haplotype_lut()
 haplotype <- t_haplotype$haplotype[t_haplotype$id == haplotype_id]
 message("haplotype: ", haplotype)
 
-supported_mhcs <- netmhc2pan::get_netmhc2pan_alleles()
+supported_mhcs <- as.character(netmhc2pan::get_netmhc2pan_alleles())
 
 if (nrow(supported_mhcs[supported_mhcs$mhc == haplotype & supported_mhcs$l == peptide_length, ]) == 0) {
   message(
