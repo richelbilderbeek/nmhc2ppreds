@@ -20,8 +20,6 @@ Imports:
     glue,
     Peptides,
     readr,
-    seqinr,
-    stringr,  
     tibble
 Suggests:
     devtools,
