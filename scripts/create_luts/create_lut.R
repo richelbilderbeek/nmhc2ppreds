@@ -12,6 +12,10 @@
 #
 #   Rscript create_luts.R 1
 #
+if (1 == 2) {
+  remotes::install_github("richelbilderbeek/netmhc2pan", ref = "develop")
+}
+
 library(testthat)
 args <- commandArgs(trailingOnly = TRUE)
 if (length(args) != 3) {
@@ -37,7 +41,7 @@ message("haplotype: ", haplotype)
 
 supported_mhcs <- as.character(netmhc2pan::get_netmhc2pan_alleles())
 
-if (nrow(supported_mhcs[supported_mhcs$mhc == haplotype & supported_mhcs$l == peptide_length, ]) == 0) {
+if (!haplotype %in% supported_mhcs) {
   message(
     "Combination of haplotype '", haplotype, "' ",
     "and peptide length '", peptide_length, "' ",
@@ -62,13 +66,11 @@ peptides <- replicate(
   nmhc2ppreds::create_random_peptide(length = peptide_length)
 )
 
-WRITE TO FASTA FILE:
-peptides
 
-ic50s <- netmhc2pan::run_netmhc2pan(
+ic50s <- netmhc2pan::predict_ic50(
+  protein_sequence =
   fasta_filename = fasta_filename,
-  alleles = haplotype,
-
+  alleles = haplotype
 )
 
 q <- nmhc2ppreds::convert_ic50s_to_quantiles(ic50s, n = n_quantiles)
