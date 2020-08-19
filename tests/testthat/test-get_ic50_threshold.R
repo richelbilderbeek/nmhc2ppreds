@@ -61,7 +61,7 @@ test_that("IC50 versus LUT", {
 
 test_that("simulated peptides must be in LUT", {
 
-  if (!mhcnuggetsr::is_on_ci()) return()
+  if (Sys.getenv("TRAVIS") == "") return()
 
   set.seed(42)
   # Simulate n peptides, check if these are in range
