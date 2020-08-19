@@ -19,7 +19,7 @@ peptide_lengths <- 13
 haplotype_lut <- nmhc2ppreds::get_haplotype_lut()
 
 haplotype_indices <- NA
-if (1 == 2) {
+if (1 == 1) {
   # Do all
   haplotype_indices <- haplotype_lut$id
 } else {
@@ -54,7 +54,7 @@ for (peptide_source in peptide_sources) {
         cmds[-1]
       )
       #if (peregrine::is_on_peregrine()) {
-        while (peregrine::count_jobs() > 990) {
+        while (peregrine::count_jobs() > 100) {
           Sys.sleep(60)
         }
         Sys.sleep(0.5)
