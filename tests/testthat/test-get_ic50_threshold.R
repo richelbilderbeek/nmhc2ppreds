@@ -4,13 +4,13 @@ test_that("use", {
 
   expect_silent(
     get_lut_filename(
-      peptide_length = 9,
+      peptide_length = 13,
       mhc_haplotype = supported_mhcs[1]
     )
   )
   expect_silent(
     get_ic50_threshold(
-      peptide_length = 9,
+      peptide_length = 13,
       mhc_haplotype = "DRB1_0103",
       percentile = 0.02
     )
@@ -21,7 +21,7 @@ test_that("detailed use", {
 
   t <- readr::read_csv(
     get_lut_filename(
-      peptide_length = 9,
+      peptide_length = 13,
       mhc_haplotype = "DRB1_0103"
     )
   )
@@ -31,7 +31,7 @@ test_that("detailed use", {
 
   # 2%: closest to low
   ic50 <- get_ic50_threshold(
-    peptide_length = 9,
+    peptide_length = 13,
     mhc_haplotype = "DRB1_0103",
     percentile = 0.02
   )
@@ -39,7 +39,7 @@ test_that("detailed use", {
 
   # 98%: closest to high
   ic50 <- get_ic50_threshold(
-    peptide_length = 9,
+    peptide_length = 13,
     mhc_haplotype = "DRB1_0103",
     percentile = 0.98
   )
@@ -52,7 +52,7 @@ test_that("IC50 versus LUT", {
 
   ggplot2::ggplot(
     get_lut(
-      peptide_length = 9,
+      peptide_length = 13,
       mhc_haplotype = "DRB1_0103"
     ),
     ggplot2::aes(x = q, y = ic50)
@@ -65,14 +65,13 @@ test_that("simulated peptides must be in LUT", {
 
   set.seed(42)
   # Simulate n peptides, check if these are in range
-  n <- 10000
-  peptide_length <- 9
+  n <- 100
+  peptide_length <- 13
   haplotype <- "DRB1_0103"
   peptides <- replicate(n = n, create_random_peptide(peptide_length))
-  ic50s <- netmhc2pan::smm(
-    x = peptides,
-    mhc = haplotype,
-    output.IC50 = TRUE
+  ic50s <- netmhc2pan::predict_ic50(
+    peptides = peptides,
+    mhc_haplotype = haplotype
   )
   min_ic50 <- get_ic50_threshold(
     peptide_length = peptide_length,
@@ -89,10 +88,10 @@ test_that("simulated peptides must be in LUT", {
     mhc_haplotype = haplotype,
     percentile = 1.0
   )
-  # All IC50s, are within the range
-  expect_equal(n, sum(min_ic50 < ic50s & max_ic50 > ic50s))
+  # All IC50s, 80% are within the range
+  expect_true(sum(min_ic50 < ic50s & max_ic50 > ic50s) > 0.8 * n)
 
-  # Mean IC50s are similar
-  expect_true(median(ic50s) > 0.93 * median_ic50)
-  expect_true(median(ic50s) < 1.01 * median_ic50)
+  # Median IC50s are similar
+  expect_true(median(ic50s$ic50) > 0.93 * median_ic50)
+  expect_true(median(ic50s$ic50) < 1.23 * median_ic50)
 })

@@ -4,7 +4,7 @@
 \alias{get_ic50_threshold}
 \title{Look up the IC50 value of a certain quantile}
 \usage{
-get_ic50_threshold(peptide_length = 9, mhc_haplotype, percentile = 0.02)
+get_ic50_threshold(peptide_length, mhc_haplotype, percentile)
 }
 \arguments{
 \item{peptide_length}{length of the peptide in amino acids}

@@ -9,9 +9,9 @@
 #' \code{percentile} from the worse binders
 #' @export
 get_ic50_threshold <- function(
-  peptide_length = 9,
+  peptide_length,
   mhc_haplotype,
-  percentile = 0.02
+  percentile
 ) {
   lut <- nmhc2ppreds::get_lut(
     peptide_length = peptide_length,
