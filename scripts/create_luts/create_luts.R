@@ -24,10 +24,14 @@ testthat::expect_true(all(haplotype_indices %in% nmhc2ppreds::get_haplotype_lut(
 for (peptide_source in peptide_sources) {
   for (peptide_length in peptide_lengths) {
     for (haplotype_index in haplotype_indices) {
+      call <- NA
+      if (peregrine::is_on_peregrine()) {
+        call <- c("sbatch", "../../../peregrine/scripts/run_r_script.sh")
+      } else {
+        call <- "Rscript"
+      }
       cmds <- c(
-        "sbatch",
-        "../../../peregrine/scripts/run_r_script.sh",
-        #"Rscript",
+        call,
         "create_lut.R",
         peptide_source,
         peptide_length,
@@ -37,10 +41,12 @@ for (peptide_source in peptide_sources) {
         cmds[1],
         cmds[-1]
       )
-      while (peregrine::count_jobs() > 990) {
-        Sys.sleep(60)
+      if (peregrine::is_on_peregrine()) {
+        while (peregrine::count_jobs() > 990) {
+          Sys.sleep(60)
+        }
+        Sys.sleep(0.5)
       }
-      Sys.sleep(0.5)
     }
   }
 }

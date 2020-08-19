@@ -53,7 +53,7 @@ if (!haplotype %in% supported_mhcs) {
 target_filename <- paste0(peptide_source, "_", haplotype_id, "_", peptide_length, ".csv")
 message("target_filename: '", target_filename, "'")
 
-n_peptides <- 10000
+n_peptides <- 3
 message("n_peptides: ", n_peptides)
 
 n_quantiles <- 100
