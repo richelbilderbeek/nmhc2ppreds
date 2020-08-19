@@ -14,7 +14,7 @@
 #
 
 peptide_sources <- c("random")
-peptide_lengths <- seq(13)
+peptide_lengths <- 13
 
 haplotype_lut <- nmhc2ppreds::get_haplotype_lut()
 
