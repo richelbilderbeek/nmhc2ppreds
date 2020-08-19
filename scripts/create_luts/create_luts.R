@@ -25,9 +25,9 @@ for (peptide_source in peptide_sources) {
   for (peptide_length in peptide_lengths) {
     for (haplotype_index in haplotype_indices) {
       cmds <- c(
-        #"sbatch",
-        #"../../../peregrine/scripts/run_r_script.sh",
-        "Rscript",
+        "sbatch",
+        "../../../peregrine/scripts/run_r_script.sh",
+        #"Rscript",
         "create_lut.R",
         peptide_source,
         peptide_length,
@@ -37,6 +37,10 @@ for (peptide_source in peptide_sources) {
         cmds[1],
         cmds[-1]
       )
+      while (peregrine::count_jobs() > 990) {
+        Sys.sleep(60)
+      }
+      Sys.sleep(0.5)
     }
   }
 }
