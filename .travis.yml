@@ -7,6 +7,9 @@ r_github_packages:
   - jimhester/lintr
   - richelbilderbeek/netmhc2pan
 
+before_script:
+  - Rscript -e 'netmhc2pan::install_netmhc2pan()'
+
 script:
   - travis_wait 60 R CMD build .
   - travis_wait 60 R CMD check *tar.gz
