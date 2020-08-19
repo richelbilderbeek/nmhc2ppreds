@@ -1,6 +1,6 @@
 test_that("use", {
   peptide_length <- 9
-  mhc_haplotype <- "HLA-A-01:01"
+  mhc_haplotype <- "DRB1_0103"
 
   lut <- get_lut(
     peptide_length = peptide_length,

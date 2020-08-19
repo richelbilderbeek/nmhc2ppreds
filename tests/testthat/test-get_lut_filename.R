@@ -1,17 +1,17 @@
 test_that("use", {
   peptide_length <- 9
-  mhc_haplotype <- "HLA-A-01:01"
+  mhc_haplotype <- "DRB1_0103"
 
   filename <- get_lut_filename(
     peptide_length = peptide_length,
     mhc_haplotype = mhc_haplotype
   )
-  expect_equal(basename(filename), "random_h7_9.csv")
+  expect_equal(basename(filename), "random_h3_9.csv")
 })
 
 test_that("abuse", {
   peptide_length <- 9
-  mhc_haplotype <- "HLA-A-01:01"
+  mhc_haplotype <- "DRB1_0103"
 
   expect_silent(
     get_lut_filename(

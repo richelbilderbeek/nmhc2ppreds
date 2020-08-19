@@ -11,7 +11,7 @@ test_that("use", {
   expect_silent(
     get_ic50_threshold(
       peptide_length = 9,
-      mhc_haplotype = "HLA-A-01:01",
+      mhc_haplotype = "DRB1_0103",
       percentile = 0.02
     )
   )
@@ -22,7 +22,7 @@ test_that("detailed use", {
   t <- readr::read_csv(
     get_lut_filename(
       peptide_length = 9,
-      mhc_haplotype = "HLA-A-01:01"
+      mhc_haplotype = "DRB1_0103"
     )
   )
   lowest_ic50 <- min(t$ic50)
@@ -32,7 +32,7 @@ test_that("detailed use", {
   # 2%: closest to low
   ic50 <- get_ic50_threshold(
     peptide_length = 9,
-    mhc_haplotype = "HLA-A-01:01",
+    mhc_haplotype = "DRB1_0103",
     percentile = 0.02
   )
   expect_true(ic50 < median_ic50)
@@ -40,7 +40,7 @@ test_that("detailed use", {
   # 98%: closest to high
   ic50 <- get_ic50_threshold(
     peptide_length = 9,
-    mhc_haplotype = "HLA-A-01:01",
+    mhc_haplotype = "DRB1_0103",
     percentile = 0.98
   )
   expect_true(ic50 > median_ic50)
@@ -53,7 +53,7 @@ test_that("IC50 versus LUT", {
   ggplot2::ggplot(
     get_lut(
       peptide_length = 9,
-      mhc_haplotype = "HLA-A-01:01"
+      mhc_haplotype = "DRB1_0103"
     ),
     ggplot2::aes(x = q, y = ic50)
   ) + ggplot2::geom_point()
@@ -67,7 +67,7 @@ test_that("simulated peptides must be in LUT", {
   # Simulate n peptides, check if these are in range
   n <- 10000
   peptide_length <- 9
-  haplotype <- "HLA-A-01:01"
+  haplotype <- "DRB1_0103"
   peptides <- replicate(n = n, create_random_peptide(peptide_length))
   ic50s <- netmhc2pan::smm(
     x = peptides,

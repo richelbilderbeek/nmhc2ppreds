@@ -5,7 +5,7 @@
 #' @inheritParams default_params_doc
 #' @author Richèl J.C. Bilderbeek
 #' @examples
-#' convert_haplotypes_to_haplotype_ids("HLA-A-33:01")
+#' convert_haplotypes_to_haplotype_ids("DRB1_0101")
 #' @export
 convert_haplotypes_to_haplotype_ids <- function(#nolint indeed a long function name
   haplotypes

@@ -1,7 +1,6 @@
 test_that("use", {
-  supported_mhcs <- netmhc2pan::get_netmhc2pan_alleles()
+  haplotypes <- netmhc2pan::get_netmhc2pan_alleles()
 
-  haplotypes <- sort(unique(as.character(supported_mhcs$mhc)))
   t <- get_haplotype_lut()
   expect_true("haplotype" %in% names(t))
   expect_true("id" %in% names(t))

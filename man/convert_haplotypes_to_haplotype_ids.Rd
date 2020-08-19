@@ -17,7 +17,7 @@ Convert one or more haplotypes (in netmhc2pan naming format)
 to haplotype IDs
 }
 \examples{
-convert_haplotypes_to_haplotype_ids("HLA-A-33:01")
+convert_haplotypes_to_haplotype_ids("DRB1_0101")
 }
 \author{
 Richèl J.C. Bilderbeek
