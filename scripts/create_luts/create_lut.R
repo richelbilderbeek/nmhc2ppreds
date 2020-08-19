@@ -66,13 +66,11 @@ peptides <- replicate(
   nmhc2ppreds::create_random_peptide(length = peptide_length)
 )
 
-
 ic50s <- netmhc2pan::predict_ic50(
-  protein_sequence =
-  fasta_filename = fasta_filename,
-  alleles = haplotype
+  peptides = peptides,
+  mhc_haplotype = haplotype
 )
 
-q <- nmhc2ppreds::convert_ic50s_to_quantiles(ic50s, n = n_quantiles)
+q <- nmhc2ppreds::convert_ic50s_to_quantiles(ic50s$ic50, n = n_quantiles)
 
 readr::write_csv(q, target_filename)
