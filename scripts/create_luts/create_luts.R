@@ -18,7 +18,18 @@ peptide_lengths <- 13
 
 haplotype_lut <- nmhc2ppreds::get_haplotype_lut()
 
-haplotype_indices <- haplotype_lut$id
+haplotype_indices <- NA
+if (1 == 2) {
+  # Do all
+  haplotype_indices <- haplotype_lut$id
+} else {
+  # Do BBBQ ones only
+  needed <- bbbq::get_mhc2_haplotypes()
+  for (i in seq_along(needed)) {
+    needed[i] <- netmhc2pan::to_netmhc2pan_name(needed[i])
+  }
+  haplotype_indices <- haplotype_lut$id[which(haplotype_lut$haplotype %in% needed)]
+}
 testthat::expect_true(all(haplotype_indices %in% nmhc2ppreds::get_haplotype_lut()$id))
 
 for (peptide_source in peptide_sources) {
