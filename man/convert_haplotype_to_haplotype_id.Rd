@@ -16,7 +16,7 @@ a \code{nmhc2ppreds} haplotype ID to an netmhc2pan haplotype name}
 Convert a haplotype (in netmhc2pan naming format) to a hapolotype ID
 }
 \examples{
-convert_haplotype_to_haplotype_id("HLA-A-33:01")
+convert_haplotype_to_haplotype_id("DRB1_0311")
 }
 \author{
 Richèl J.C. Bilderbeek

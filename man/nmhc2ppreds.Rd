@@ -24,7 +24,7 @@ and the distribution at the percentile level is stored as a lookup table.
 # Get the IC50 value of which 2\% of IC50 predictions are below,
 # that is, bind better to the MHC complexes
 ic50_threshold <- get_ic50_threshold(
-  peptide_length = 9,
+  peptide_length = 13,
   mhc_haplotype = "DRB1_0103",
   percentile = 0.02
 )
