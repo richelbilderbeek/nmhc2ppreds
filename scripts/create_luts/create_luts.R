@@ -35,6 +35,10 @@ testthat::expect_true(all(haplotype_indices %in% nmhc2ppreds::get_haplotype_lut(
 for (peptide_source in peptide_sources) {
   for (peptide_length in peptide_lengths) {
     for (haplotype_index in haplotype_indices) {
+
+      target_filename <- paste0(peptide_source, "_", haplotype_index, "_", peptide_length, ".csv")
+      if (file.exists(target_filename)) next
+
       call <- NA
       if (peregrine::is_on_peregrine()) {
         call <- c("sbatch", "run_r_script_on_vulture.sh")
