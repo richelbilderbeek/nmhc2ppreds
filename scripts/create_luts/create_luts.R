@@ -36,12 +36,11 @@ for (peptide_source in peptide_sources) {
   for (peptide_length in peptide_lengths) {
     for (haplotype_index in haplotype_indices) {
       call <- NA
-      #if (peregrine::is_on_peregrine()) {
+      if (peregrine::is_on_peregrine()) {
         call <- c("sbatch", "run_r_script_on_vulture.sh")
-      #} else {
-      #  call <- "Rscript"
-      #  stop("Huh?")
-      #}
+      } else {
+        call <- "Rscript"
+      }
       cmds <- c(
         call,
         "create_lut.R",
@@ -53,12 +52,12 @@ for (peptide_source in peptide_sources) {
         cmds[1],
         cmds[-1]
       )
-      #if (peregrine::is_on_peregrine()) {
+      if (peregrine::is_on_peregrine()) {
         while (peregrine::count_jobs() > 100) {
           Sys.sleep(60)
         }
         Sys.sleep(0.5)
-      #}
+      }
     }
   }
 }

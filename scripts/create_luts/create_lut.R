@@ -53,6 +53,11 @@ if (!haplotype %in% supported_mhcs) {
 target_filename <- paste0(peptide_source, "_", haplotype_id, "_", peptide_length, ".csv")
 message("target_filename: '", target_filename, "'")
 
+if (file.exists(target_filename)) {
+  message("File '", target_filename, "' already exists. Done!")
+  q()
+}
+
 n_peptides <- 1000
 message("n_peptides: ", n_peptides)
 
