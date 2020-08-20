@@ -92,6 +92,6 @@ test_that("simulated peptides must be in LUT", {
   expect_true(sum(min_ic50 < ic50s & max_ic50 > ic50s) > 0.8 * n)
 
   # Median IC50s are similar
-  expect_true(median(ic50s$ic50) > 0.93 * median_ic50)
-  expect_true(median(ic50s$ic50) < 1.23 * median_ic50)
+  expect_true(median(ic50s$ic50) > 0.80 * median_ic50)
+  expect_true(median(ic50s$ic50) < 1.20 * median_ic50)
 })
