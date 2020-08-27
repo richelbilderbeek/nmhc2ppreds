@@ -20,6 +20,8 @@ library(testthat)
 args <- commandArgs(trailingOnly = TRUE)
 if (length(args) != 3) {
   args <- c("random", "9", "h1")
+  args <- c("random", "13", "h5629")
+
 }
 testthat::expect_equal(length(args), 3)
 message(
@@ -37,17 +39,18 @@ testthat::expect_true(haplotype_id %in% nmhc2ppreds::get_haplotype_lut()$id)
 
 t_haplotype <- nmhc2ppreds::get_haplotype_lut()
 haplotype <- t_haplotype$haplotype[t_haplotype$id == haplotype_id]
+
+testthat::expect_equal(0, stringr::str_count(haplotype, "\t"))
 message("haplotype: ", haplotype)
 
 supported_mhcs <- as.character(netmhc2pan::get_netmhc2pan_alleles())
 
 if (!haplotype %in% supported_mhcs) {
-  message(
+  stop(
     "Combination of haplotype '", haplotype, "' ",
     "and peptide length '", peptide_length, "' ",
     "not supported by netmhc2pan"
   )
-  q()
 }
 
 target_filename <- paste0(peptide_source, "_", haplotype_id, "_", peptide_length, ".csv")
