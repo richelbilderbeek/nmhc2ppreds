@@ -5,7 +5,6 @@ cache: packages
 r_github_packages:
   - jimhester/covr
   - jimhester/lintr
-  - richelbilderbeek/netmhc2pan
 
 before_script:
   # tcsh
